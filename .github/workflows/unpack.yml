@@ -1,0 +1,18 @@
+name: Unpack
+on: workflow_dispatch
+permissions:
+  contents: write
+jobs:
+  unpack:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - run: |
+          unzip -q khati-ghoroa-swad.zip
+          cp -r khati-ghoroa-swad/. .
+          rm -rf khati-ghoroa-swad khati-ghoroa-swad.zip
+          git config user.name "github-actions"
+          git config user.email "actions@github.com"
+          git add -A
+          git commit -m "Add project files"
+          git push
